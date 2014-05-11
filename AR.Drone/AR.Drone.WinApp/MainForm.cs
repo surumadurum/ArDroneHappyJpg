@@ -52,10 +52,15 @@ namespace AR.Drone.WinApp
         public byte[] hidData = new byte[32];
         public float deadZone = 0.11f;
         public float deadZoneYaw = 0.12f;
-        public float yawMultiplier = 1.0f;
-        public float pitchMultiplier = 0.3f;
+
+
+        public decimal yaw_backup;
+
+        public float yawMultiplier;
+/*        public float pitchMultiplier = 0.3f;
         public float rollMultiplier = 0.3f;
         public float gazMultiplier = 2.0f;
+        */
 
         public int animation = 0;
         
@@ -90,6 +95,8 @@ namespace AR.Drone.WinApp
             myJoy = new Joystick(dinput, myGuid);
             
             myJoy.Acquire();
+
+            yawMultiplier = (float)yawMultSetBox.Value;
              
         }
 
@@ -333,7 +340,6 @@ namespace AR.Drone.WinApp
                 });
             configurationTask.Start();
 
-          //string x = _settings.Custom.SessionId;
         }
 
         private void btnSendConfig_Click(object sender, EventArgs e)
@@ -369,9 +375,10 @@ namespace AR.Drone.WinApp
                     settings.General.NavdataDemo = false;
                     settings.General.NavdataOptions = NavdataOptions.All;
 
-                    settings.Video.BitrateCtrlMode = VideoBitrateControlMode.Dynamic;
+/*                    settings.Video.BitrateCtrlMode = VideoBitrateControlMode.Dynamic;
                     settings.Video.Bitrate = 1000;
                     settings.Video.MaxBitrate = 2000;
+                    */
 
                     //settings.Leds.LedAnimation = new LedAnimation(LedAnimationType.BlinkGreenRed, 2.0f, 2);
                     //settings.Control.FlightAnimation = new FlightAnimation(FlightAnimationType.Wave);
@@ -388,9 +395,15 @@ namespace AR.Drone.WinApp
 
                     //send all changes in one pice
                     settings.Control.AltitudeMax = 10000;    //it's over NEIN THOUSAND!!!
+                    settings.Control.AltitudeMin = 0;
+
+
                     settings.Control.ControlVzMax = (float)maxVz.Value;
                     settings.Control.ControlYaw = (float)maxYaw.Value;
                     settings.Control.EulerAngleMax = 1.0f;
+
+                    if(radioSelect22Hz.Checked)settings.Pic.UltrasoundFreq = 7; //set the ultrasound at 22,22Hz
+                    else if (radioSelect25Hz.Checked) settings.Pic.UltrasoundFreq = 8; //set the ultrasound at 25Hz
 
                     _droneClient.Send(settings);
                 });
@@ -555,11 +568,12 @@ namespace AR.Drone.WinApp
             //Yaw. more precision on pressed button
             if (myJoy.GetCurrentState().IsPressed(4))
             {
+                
                 yawMultiplier = 0.3f;
              }
              if (myJoy.GetCurrentState().IsReleased(4))
              {
-                    yawMultiplier = (float)yawMultSetBox.Value;
+                 yawMultiplier = (float)yawMultSetBox.Value;
              }
  
 
@@ -595,18 +609,6 @@ namespace AR.Drone.WinApp
             //up
             float trigBtn = (float)((myJoy.GetCurrentState().Z / 655 - 50)/100.0f);
 
-            oneHoLabel.Text = oneHo.ToString();
-            oneHoMulLabel.Text = (oneHo * rollMultiplier).ToString();
-            oneVeLabel.Text = oneVe.ToString();
-            trigBtnLabel.Text = trigBtn.ToString();
-            twoHoLabel.Text = twoHo.ToString();
-
-            bool[] buttons = myJoy.GetCurrentState().GetButtons();
-
-           
-
-                    //   StartBtnLabel.Text = string.Format("{0}",
-
 
 
 
@@ -636,10 +638,12 @@ namespace AR.Drone.WinApp
             //int y =0;
 
          // for(int x=0;x<20;++x)if(myJoy.GetCurrentState().IsPressed(x))y=x;
-           // StartBtnLabel.Text = string.Format("{0}",y);
+            //StartBtnLabel.Text = string.Format("{0}",y);
 
-           
-            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
+      //      float y = (float)yawMultSetBox.Value;
+      //      StartBtnLabel.Text = string.Format("{0}",y);
+
+            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * (float)pitchMultSetBox.Value, roll: oneHo * (float)rollMultSetBox.Value, gaz: trigBtn * (float)gazMultSetBox.Value);
             //_droneClient.Progress(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
             //_droneClient.Progress(FlightMode.AbsoluteControl, yaw: 1.0f);//, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
            // _droneClient.Progress(FlightMode.AbsoluteControl, yaw: twoHo * yawMultiplier, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
@@ -653,14 +657,16 @@ namespace AR.Drone.WinApp
             myJoy.RunControlPanel();
         }
 
-        private void rollMultSetBox_ValueChanged(object sender, EventArgs e)
+
+        //Werden nicht mehr benötigt, da bei _droneClient.Progress direkt rollMulBox.Value eingelesen
+        private void rollMultSetBox_Value(object sender, EventArgs e)
         {
-            rollMultiplier = (float)rollMultSetBox.Value;
+          //  rollMultiplier = (float)rollMultSetBox.Value;
         }
 
         private void pitchMultSetBox_ValueChanged(object sender, EventArgs e)
         {
-            pitchMultiplier = (float)pitchMultSetBox.Value;
+            //    pitchMultiplier = (float)pitchMultSetBox.Value;
         }
 
         private void yawMultSetBox_ValueChanged(object sender, EventArgs e)
@@ -670,9 +676,9 @@ namespace AR.Drone.WinApp
 
         private void gazMultSetBox_ValueChanged(object sender, EventArgs e)
         {
-            gazMultiplier = (float)gazMultSetBox.Value;
+          //  gazMultiplier = (float)gazMultSetBox.Value;
         }
-
+        
         private void oneHoLabel_Click(object sender, EventArgs e)
         {
 

@@ -79,6 +79,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numericAnimation = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.radioSelect22Hz = new System.Windows.Forms.RadioButton();
+            this.radioSelect25Hz = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rollMultSetBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pitchMultSetBox)).BeginInit();
@@ -442,7 +444,7 @@
             0,
             0,
             65536});
-            this.rollMultSetBox.ValueChanged += new System.EventHandler(this.rollMultSetBox_ValueChanged);
+//            this.rollMultSetBox.ValueChanged += new System.EventHandler(this.rollMultSetBox_ValueChanged);
             // 
             // pitchMultSetBox
             // 
@@ -486,7 +488,7 @@
             this.yawMultSetBox.Size = new System.Drawing.Size(52, 20);
             this.yawMultSetBox.TabIndex = 35;
             this.yawMultSetBox.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -576,7 +578,7 @@
             this.maxVz.Size = new System.Drawing.Size(52, 20);
             this.maxVz.TabIndex = 39;
             this.maxVz.Value = new decimal(new int[] {
-            1500,
+            2000,
             0,
             0,
             0});
@@ -638,7 +640,7 @@
             // numericAnimation
             // 
             this.numericAnimation.DecimalPlaces = 1;
-            this.numericAnimation.Location = new System.Drawing.Point(188, 620);
+            this.numericAnimation.Location = new System.Drawing.Point(25, 619);
             this.numericAnimation.Maximum = new decimal(new int[] {
             20,
             0,
@@ -651,18 +653,42 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(255, 622);
+            this.label3.Location = new System.Drawing.Point(92, 621);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 47;
             this.label3.Text = "Animation";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // radioSelect22Hz
+            // 
+            this.radioSelect22Hz.AutoSize = true;
+            this.radioSelect22Hz.Location = new System.Drawing.Point(290, 608);
+            this.radioSelect22Hz.Name = "radioSelect22Hz";
+            this.radioSelect22Hz.Size = new System.Drawing.Size(104, 17);
+            this.radioSelect22Hz.TabIndex = 48;
+            this.radioSelect22Hz.TabStop = true;
+            this.radioSelect22Hz.Text = "Ultrasound 22Hz";
+            this.radioSelect22Hz.UseVisualStyleBackColor = true;
+            // 
+            // radioSelect25Hz
+            // 
+            this.radioSelect25Hz.AutoSize = true;
+            this.radioSelect25Hz.Location = new System.Drawing.Point(290, 631);
+            this.radioSelect25Hz.Name = "radioSelect25Hz";
+            this.radioSelect25Hz.Size = new System.Drawing.Size(104, 17);
+            this.radioSelect25Hz.TabIndex = 49;
+            this.radioSelect25Hz.TabStop = true;
+            this.radioSelect25Hz.Text = "Ultrasound 25Hz";
+            this.radioSelect25Hz.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(886, 665);
+            this.Controls.Add(this.radioSelect25Hz);
+            this.Controls.Add(this.radioSelect22Hz);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numericAnimation);
             this.Controls.Add(this.label1);
@@ -777,6 +803,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericAnimation;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton radioSelect22Hz;
+        private System.Windows.Forms.RadioButton radioSelect25Hz;
     }
 }
 
