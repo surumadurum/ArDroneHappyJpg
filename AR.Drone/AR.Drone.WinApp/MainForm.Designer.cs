@@ -440,11 +440,10 @@
             this.rollMultSetBox.Size = new System.Drawing.Size(52, 20);
             this.rollMultSetBox.TabIndex = 33;
             this.rollMultSetBox.Value = new decimal(new int[] {
-            3,
+            15,
             0,
             0,
             65536});
-//            this.rollMultSetBox.ValueChanged += new System.EventHandler(this.rollMultSetBox_ValueChanged);
             // 
             // pitchMultSetBox
             // 
@@ -464,7 +463,7 @@
             this.pitchMultSetBox.Size = new System.Drawing.Size(52, 20);
             this.pitchMultSetBox.TabIndex = 34;
             this.pitchMultSetBox.Value = new decimal(new int[] {
-            3,
+            15,
             0,
             0,
             65536});
@@ -473,14 +472,9 @@
             // yawMultSetBox
             // 
             this.yawMultSetBox.DecimalPlaces = 1;
-            this.yawMultSetBox.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            131072});
             this.yawMultSetBox.Location = new System.Drawing.Point(578, 527);
             this.yawMultSetBox.Maximum = new decimal(new int[] {
-            2,
+            15,
             0,
             0,
             0});
@@ -488,7 +482,7 @@
             this.yawMultSetBox.Size = new System.Drawing.Size(52, 20);
             this.yawMultSetBox.TabIndex = 35;
             this.yawMultSetBox.Value = new decimal(new int[] {
-            2,
+            8,
             0,
             0,
             0});

@@ -652,10 +652,12 @@ namespace AR.Drone.WinApp
             oneVeLabel.Text = oneVe.ToString();
             twoHoLabel.Text = twoHo.ToString();
            
-
+            float yawyaw = (float)yawMultSetBox.Value *(twoHo*twoHo*twoHo);
+            float rollroll = oneHo* oneHo* oneHo * (float)rollMultSetBox.Value;
+            float pitchpitch = oneVe * oneVe* oneVe* (float)pitchMultSetBox.Value;
 //            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * (float)pitchMultSetBox.Value, roll: oneHo * (float)rollMultSetBox.Value, gaz: trigBtn * (float)gazMultSetBox.Value);
 
-            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: 8*(oneHo*oneHo*oneHo), pitch: oneVe * oneVe* oneVe* (float)0.5, roll: twoHo* twoHo* twoHo * (float)0.5, gaz: trigBtn * (float)gazMultSetBox.Value);
+            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: yawyaw , pitch: pitchpitch, roll: rollroll, gaz: trigBtn * (float)gazMultSetBox.Value);
 
             
             //_droneClient.Progress(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
