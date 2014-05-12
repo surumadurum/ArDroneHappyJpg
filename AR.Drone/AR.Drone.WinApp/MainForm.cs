@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define YAW_FUNCTION 9*
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -50,11 +52,11 @@ namespace AR.Drone.WinApp
 
         public IList<DeviceInstance> myList;
         public byte[] hidData = new byte[32];
-        public float deadZone = 0.11f;
-        public float deadZoneYaw = 0.12f;
+        public float deadZone = 0.08f;
+        public float deadZoneYaw = 0.09f;
 
 
-        public decimal yaw_backup;
+      //  public decimal yaw_backup;
 
         public float yawMultiplier;
 /*        public float pitchMultiplier = 0.3f;
@@ -405,6 +407,9 @@ namespace AR.Drone.WinApp
                     if(radioSelect22Hz.Checked)settings.Pic.UltrasoundFreq = 7; //set the ultrasound at 22,22Hz
                     else if (radioSelect25Hz.Checked) settings.Pic.UltrasoundFreq = 8; //set the ultrasound at 25Hz
 
+                    settings.Pic.UltrasoundWatchdog = 3;
+                  //  settings.Pic.Version = 184877090;
+
                     _droneClient.Send(settings);
                 });
             sendConfigTask.Start();
@@ -643,7 +648,16 @@ namespace AR.Drone.WinApp
       //      float y = (float)yawMultSetBox.Value;
       //      StartBtnLabel.Text = string.Format("{0}",y);
 
-            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * (float)pitchMultSetBox.Value, roll: oneHo * (float)rollMultSetBox.Value, gaz: trigBtn * (float)gazMultSetBox.Value);
+            oneHoLabel.Text = oneHo.ToString();
+            oneVeLabel.Text = oneVe.ToString();
+            twoHoLabel.Text = twoHo.ToString();
+           
+
+//            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * (float)pitchMultSetBox.Value, roll: oneHo * (float)rollMultSetBox.Value, gaz: trigBtn * (float)gazMultSetBox.Value);
+
+            _droneClient.ProgressWithMagneto(FlightMode.Progressive, yaw: 8*(oneHo*oneHo*oneHo), pitch: oneVe * (float)pitchMultSetBox.Value, roll: oneHo * (float)rollMultSetBox.Value, gaz: trigBtn * (float)gazMultSetBox.Value);
+
+            
             //_droneClient.Progress(FlightMode.Progressive, yaw: twoHo * yawMultiplier, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
             //_droneClient.Progress(FlightMode.AbsoluteControl, yaw: 1.0f);//, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
            // _droneClient.Progress(FlightMode.AbsoluteControl, yaw: twoHo * yawMultiplier, pitch: oneVe * pitchMultiplier, roll: oneHo * rollMultiplier, gaz: trigBtn * gazMultiplier);
